@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fc98b348dea6432ca5e921cc3df5354d" Name="Diagram1">
+        <EntityTypeShape EntityType="projectdatabaseModel.admin" Width="1.5" PointX="10.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.Alumni" Width="1.5" PointX="8" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.Alumni_" Width="1.5" PointX="7.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.AssignedSurvey" Width="1.5" PointX="3" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.bothstudent" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.CompletedSurveys" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.courses" Width="1.5" PointX="10.25" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.createsurvey" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.EventComments" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.Events" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.JobApplications" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.JobDetails" Width="1.5" PointX="8" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.posts" Width="1.5" PointX="10.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.Student" Width="1.5" PointX="8" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.Students" Width="1.5" PointX="5.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.survey_questions" Width="1.5" PointX="3" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.surveyAllumini" Width="1.5" PointX="9.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.surveyCurrentStudent" Width="1.5" PointX="11.75" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.SurveyQuestionOptions" Width="1.5" PointX="12.75" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.SurveyResponse" Width="1.5" PointX="3" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="projectdatabaseModel.Users" Width="1.5" PointX="5.75" PointY="2.25" IsExpanded="true" />
+        <AssociationConnector Association="projectdatabaseModel.FK__Alumni__users_id__693CA210" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__AssignedS__Surve__160F4887" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__Completed__stude__3E1D39E1" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__EventComm__stude__245D67DE" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__JobApplic__stude__17036CC0" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__SurveyRes__Stude__25518C17" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__Completed__surve__3D2915A8" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__courses__regno__6A30C649" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__survey_qu__Surve__01142BA1" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__EventComm__event__236943A5" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__JobDetail__Stude__6C190EBB" ManuallyRouted="false" />
+        <AssociationConnector Association="projectdatabaseModel.FK__Student__users_i__6D0D32F4" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

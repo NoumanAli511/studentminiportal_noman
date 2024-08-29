@@ -1,0 +1,1257 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="projectdatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="department" Type="varchar" MaxLength="100" />
+          <Property Name="role" Type="varchar" MaxLength="50" />
+          <Property Name="phone_no" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Alumni">
+          <Key>
+            <PropertyRef Name="regno" />
+          </Key>
+          <Property Name="jobstatus" Type="varchar" MaxLength="5" />
+          <Property Name="complition_date" Type="date" />
+          <Property Name="users_id" Type="int" />
+          <Property Name="regno" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Alumni_">
+          <Key>
+            <PropertyRef Name="alumni_id" />
+          </Key>
+          <Property Name="alumni_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="password" Type="varchar" MaxLength="255" />
+          <Property Name="email" Type="varchar" MaxLength="255" />
+          <Property Name="phone_number" Type="varchar" MaxLength="15" />
+          <Property Name="address" Type="varchar" MaxLength="255" />
+          <Property Name="department" Type="varchar" MaxLength="100" />
+          <Property Name="section" Type="char" MaxLength="1" />
+          <Property Name="graduation_year" Type="int" />
+          <Property Name="arid_number" Type="varchar" MaxLength="50" />
+          <Property Name="technology" Type="varchar" MaxLength="100" />
+          <Property Name="gender" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="AssignedSurvey">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyID" Type="int" />
+          <Property Name="Section" Type="varchar" MaxLength="50" />
+          <Property Name="Semester" Type="int" />
+          <Property Name="Department" Type="varchar" MaxLength="100" />
+          <Property Name="Gender" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="100" />
+          <Property Name="Technology" Type="varchar" MaxLength="100" />
+          <Property Name="GraduationYear" Type="int" />
+          <Property Name="studentType" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="bothstudent">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="arid_number" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="phone_number" Type="varchar" MaxLength="20" />
+          <Property Name="department" Type="varchar" MaxLength="50" />
+          <Property Name="semester" Type="int" />
+          <Property Name="section" Type="char" MaxLength="1" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="graduation_year" Type="varchar" MaxLength="20" />
+          <Property Name="status" Type="varchar" MaxLength="10" />
+          <Property Name="gender" Type="char" MaxLength="1" />
+          <Property Name="Technology" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="CompletedSurveys">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionId" Type="int" />
+          <Property Name="answer" Type="int" />
+          <Property Name="surveyId" Type="int" />
+          <Property Name="student_id" Type="int" />
+        </EntityType>
+        <EntityType Name="courses">
+          <Key>
+            <PropertyRef Name="course_code" />
+          </Key>
+          <Property Name="course_name" Type="varchar" MaxLength="255" />
+          <Property Name="credit_hour" Type="int" />
+          <Property Name="course_code" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="course_grade" Type="char" MaxLength="1" />
+          <Property Name="regno" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="createsurvey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyTitle" Type="varchar" MaxLength="255" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="EventComments">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="event_id" Type="int" />
+          <Property Name="student_id" Type="int" />
+          <Property Name="comment" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="event_date" Type="datetime" Nullable="false" />
+          <Property Name="venue" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="image_path" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="JobApplications">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="JobTitle" Type="nvarchar" MaxLength="100" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="100" />
+          <Property Name="JobDescription" Type="nvarchar(max)" />
+          <Property Name="IsApproved" Type="bit" />
+          <Property Name="student_id" Type="int" />
+        </EntityType>
+        <EntityType Name="JobDetails">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Company" Type="varchar" MaxLength="100" />
+          <Property Name="Designation" Type="varchar" MaxLength="100" />
+          <Property Name="City" Type="varchar" MaxLength="50" />
+          <Property Name="StudentID" Type="int" />
+        </EntityType>
+        <EntityType Name="posts">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="p_date" Type="date" />
+          <Property Name="p_time" Type="time" Precision="7" />
+          <Property Name="p_image" Type="image" />
+          <Property Name="e_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="regno" />
+          </Key>
+          <Property Name="section" Type="varchar" MaxLength="5" />
+          <Property Name="decepline" Type="varchar" MaxLength="10" />
+          <Property Name="users_id" Type="int" />
+          <Property Name="regno" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="arid_number" Type="varchar" MaxLength="20" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="phone_number" Type="varchar" MaxLength="15" />
+          <Property Name="department" Type="varchar" MaxLength="50" />
+          <Property Name="semester" Type="int" />
+          <Property Name="section" Type="char" MaxLength="1" />
+          <Property Name="address" Type="varchar" MaxLength="100" />
+          <Property Name="graduation_year" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
+          <Property Name="gender" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="survey_questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="QuestionText" Type="varchar" MaxLength="255" />
+          <Property Name="Option1" Type="varchar" MaxLength="100" />
+          <Property Name="Option2" Type="varchar" MaxLength="100" />
+          <Property Name="Option3" Type="varchar" MaxLength="100" />
+          <Property Name="SurveyID" Type="int" />
+        </EntityType>
+        <EntityType Name="surveyAllumini">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="suveryId" Type="int" />
+          <Property Name="year" Type="int" />
+          <Property Name="degree" Type="varchar" MaxLength="255" />
+          <Property Name="location" Type="varchar" MaxLength="255" />
+          <Property Name="technology" Type="varchar" MaxLength="255" />
+          <Property Name="gender" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="surveyCurrentStudent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="surveryId" Type="int" />
+          <Property Name="gender" Type="varchar" MaxLength="255" />
+          <Property Name="degree" Type="varchar" MaxLength="255" />
+          <Property Name="semester" Type="varchar" MaxLength="255" />
+          <Property Name="section" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="SurveyQuestionOptions">
+          <Key>
+            <PropertyRef Name="OptionID" />
+          </Key>
+          <Property Name="OptionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyQuestionID" Type="int" Nullable="false" />
+          <Property Name="OptionText" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SurveyResponse">
+          <Key>
+            <PropertyRef Name="SurveyResponseID" />
+          </Key>
+          <Property Name="SurveyResponseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SurveyID" Type="int" Nullable="false" />
+          <Property Name="SurveyQuestionID" Type="int" Nullable="false" />
+          <Property Name="SelectedOptionID" Type="int" Nullable="false" />
+          <Property Name="StudentID" Type="int" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="inrollment_date" Type="date" />
+          <Property Name="user_password" Type="varchar" MaxLength="50" />
+          <Property Name="user_type" Type="varchar" MaxLength="50" />
+          <Property Name="user_fname" Type="varchar" MaxLength="50" />
+          <Property Name="user_lname" Type="varchar" MaxLength="50" />
+          <Property Name="gender" Type="varchar" MaxLength="10" />
+          <Property Name="email" Type="varchar" MaxLength="70" />
+          <Property Name="contact" Type="varchar" MaxLength="70" />
+        </EntityType>
+        <Association Name="FK__Alumni__users_id__693CA210">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Alumni" Type="Self.Alumni" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="users_id" />
+            </Principal>
+            <Dependent Role="Alumni">
+              <PropertyRef Name="users_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__AssignedS__Surve__160F4887">
+          <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
+          <End Role="AssignedSurvey" Type="Self.AssignedSurvey" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="createsurvey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="AssignedSurvey">
+              <PropertyRef Name="SurveyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Completed__stude__3E1D39E1">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="CompletedSurveys" Type="Self.CompletedSurveys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bothstudent">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="CompletedSurveys">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Completed__surve__3D2915A8">
+          <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
+          <End Role="CompletedSurveys" Type="Self.CompletedSurveys" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="createsurvey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="CompletedSurveys">
+              <PropertyRef Name="surveyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__courses__regno__6A30C649">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="courses" Type="Self.courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="regno" />
+            </Principal>
+            <Dependent Role="courses">
+              <PropertyRef Name="regno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omitted from the storage model. Column 'regno' of table 'projectdatabaseModel.Store.courses' is a foreign key participating in multiple relationships. A one-to-one Entity Model will not validate since data inconsistency is possible.
+        <Association Name="FK__courses__regno__6B24EA82">
+          <End Role="Alumni" Type="Self.Alumni" Multiplicity="0..1" />
+          <End Role="courses" Type="Self.courses" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Alumni">
+              <PropertyRef Name="regno" />
+            </Principal>
+            <Dependent Role="courses">
+              <PropertyRef Name="regno" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>-->
+        <Association Name="FK__EventComm__event__236943A5">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="EventComments" Type="Self.EventComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="event_id" />
+            </Principal>
+            <Dependent Role="EventComments">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__EventComm__stude__245D67DE">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="EventComments" Type="Self.EventComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bothstudent">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="EventComments">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JobApplic__stude__17036CC0">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="JobApplications" Type="Self.JobApplications" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bothstudent">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="JobApplications">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__JobDetail__Stude__6C190EBB">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="JobDetails" Type="Self.JobDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Students">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="JobDetails">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Student__users_i__6D0D32F4">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="users_id" />
+            </Principal>
+            <Dependent Role="Student">
+              <PropertyRef Name="users_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__survey_qu__Surve__01142BA1">
+          <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
+          <End Role="survey_questions" Type="Self.survey_questions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="createsurvey">
+              <PropertyRef Name="SurveyID" />
+            </Principal>
+            <Dependent Role="survey_questions">
+              <PropertyRef Name="SurveyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SurveyRes__Stude__25518C17">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bothstudent">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="SurveyResponse">
+              <PropertyRef Name="StudentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="projectdatabaseModelStoreContainer">
+          <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alumni" EntityType="Self.Alumni" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Alumni_" EntityType="Self.Alumni_" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AssignedSurvey" EntityType="Self.AssignedSurvey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="bothstudent" EntityType="Self.bothstudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompletedSurveys" EntityType="Self.CompletedSurveys" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="courses" EntityType="Self.courses" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="createsurvey" EntityType="Self.createsurvey" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventComments" EntityType="Self.EventComments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobApplications" EntityType="Self.JobApplications" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="JobDetails" EntityType="Self.JobDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="posts" EntityType="Self.posts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="survey_questions" EntityType="Self.survey_questions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="surveyAllumini" EntityType="Self.surveyAllumini" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="surveyCurrentStudent" EntityType="Self.surveyCurrentStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyQuestionOptions" EntityType="Self.SurveyQuestionOptions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Alumni__users_id__693CA210" Association="Self.FK__Alumni__users_id__693CA210">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Alumni" EntitySet="Alumni" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AssignedS__Surve__160F4887" Association="Self.FK__AssignedS__Surve__160F4887">
+            <End Role="createsurvey" EntitySet="createsurvey" />
+            <End Role="AssignedSurvey" EntitySet="AssignedSurvey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Completed__stude__3E1D39E1" Association="Self.FK__Completed__stude__3E1D39E1">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="CompletedSurveys" EntitySet="CompletedSurveys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Completed__surve__3D2915A8" Association="Self.FK__Completed__surve__3D2915A8">
+            <End Role="createsurvey" EntitySet="createsurvey" />
+            <End Role="CompletedSurveys" EntitySet="CompletedSurveys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__courses__regno__6A30C649" Association="Self.FK__courses__regno__6A30C649">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="courses" EntitySet="courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventComm__event__236943A5" Association="Self.FK__EventComm__event__236943A5">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventComments" EntitySet="EventComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventComm__stude__245D67DE" Association="Self.FK__EventComm__stude__245D67DE">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="EventComments" EntitySet="EventComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobApplic__stude__17036CC0" Association="Self.FK__JobApplic__stude__17036CC0">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="JobApplications" EntitySet="JobApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobDetail__Stude__6C190EBB" Association="Self.FK__JobDetail__Stude__6C190EBB">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="JobDetails" EntitySet="JobDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__users_i__6D0D32F4" Association="Self.FK__Student__users_i__6D0D32F4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+          <AssociationSet Name="FK__survey_qu__Surve__01142BA1" Association="Self.FK__survey_qu__Surve__01142BA1">
+            <End Role="createsurvey" EntitySet="createsurvey" />
+            <End Role="survey_questions" EntitySet="survey_questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SurveyRes__Stude__25518C17" Association="Self.FK__SurveyRes__Stude__25518C17">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="projectdatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="admin">
+          <Key>
+            <PropertyRef Name="admin_id" />
+          </Key>
+          <Property Name="admin_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="department" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="role" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone_no" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Alumni">
+          <Key>
+            <PropertyRef Name="regno" />
+          </Key>
+          <Property Name="jobstatus" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="complition_date" Type="DateTime" Precision="0" />
+          <Property Name="regno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Alumni__users_id__693CA210" FromRole="Alumni" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Alumni_">
+          <Key>
+            <PropertyRef Name="alumni_id" />
+          </Key>
+          <Property Name="alumni_id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="phone_number" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="section" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="graduation_year" Type="Int32" />
+          <Property Name="arid_number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="AssignedSurvey">
+          <Key>
+            <PropertyRef Name="AssignmentID" />
+          </Key>
+          <Property Name="AssignmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Section" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Semester" Type="Int32" />
+          <Property Name="Department" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="GraduationYear" Type="Int32" />
+          <Property Name="studentType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="createsurvey" Relationship="Self.FK__AssignedS__Surve__160F4887" FromRole="AssignedSurvey" ToRole="createsurvey" />
+        </EntityType>
+        <EntityType Name="bothstudent">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="arid_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="semester" Type="Int32" />
+          <Property Name="section" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="graduation_year" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CompletedSurveys" Relationship="Self.FK__Completed__stude__3E1D39E1" FromRole="bothstudent" ToRole="CompletedSurveys" />
+          <NavigationProperty Name="EventComments" Relationship="Self.FK__EventComm__stude__245D67DE" FromRole="bothstudent" ToRole="EventComments" />
+          <NavigationProperty Name="JobApplications" Relationship="Self.FK__JobApplic__stude__17036CC0" FromRole="bothstudent" ToRole="JobApplications" />
+          <NavigationProperty Name="SurveyResponse" Relationship="Self.FK__SurveyRes__Stude__25518C17" FromRole="bothstudent" ToRole="SurveyResponse" />
+        </EntityType>
+        <EntityType Name="CompletedSurveys">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionId" Type="Int32" />
+          <Property Name="answer" Type="Int32" />
+          <NavigationProperty Name="bothstudent" Relationship="Self.FK__Completed__stude__3E1D39E1" FromRole="CompletedSurveys" ToRole="bothstudent" />
+          <NavigationProperty Name="createsurvey" Relationship="Self.FK__Completed__surve__3D2915A8" FromRole="CompletedSurveys" ToRole="createsurvey" />
+        </EntityType>
+        <EntityType Name="courses">
+          <Key>
+            <PropertyRef Name="course_code" />
+          </Key>
+          <Property Name="course_name" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="credit_hour" Type="Int32" />
+          <Property Name="course_code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="course_grade" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__courses__regno__6A30C649" FromRole="courses" ToRole="Student" />
+        </EntityType>
+        <EntityType Name="createsurvey">
+          <Key>
+            <PropertyRef Name="SurveyID" />
+          </Key>
+          <Property Name="SurveyID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyTitle" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="StartDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AssignedSurvey" Relationship="Self.FK__AssignedS__Surve__160F4887" FromRole="createsurvey" ToRole="AssignedSurvey" />
+          <NavigationProperty Name="CompletedSurveys" Relationship="Self.FK__Completed__surve__3D2915A8" FromRole="createsurvey" ToRole="CompletedSurveys" />
+          <NavigationProperty Name="survey_questions" Relationship="Self.FK__survey_qu__Surve__01142BA1" FromRole="createsurvey" ToRole="survey_questions" />
+        </EntityType>
+        <EntityType Name="EventComments">
+          <Key>
+            <PropertyRef Name="comment_id" />
+          </Key>
+          <Property Name="comment_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="bothstudent" Relationship="Self.FK__EventComm__stude__245D67DE" FromRole="EventComments" ToRole="bothstudent" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__EventComm__event__236943A5" FromRole="EventComments" ToRole="Events" />
+        </EntityType>
+        <EntityType Name="Events">
+          <Key>
+            <PropertyRef Name="event_id" />
+          </Key>
+          <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="event_date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="venue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="image_path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="EventComments" Relationship="Self.FK__EventComm__event__236943A5" FromRole="Events" ToRole="EventComments" />
+        </EntityType>
+        <EntityType Name="JobApplications">
+          <Key>
+            <PropertyRef Name="ApplicationID" />
+          </Key>
+          <Property Name="ApplicationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="JobTitle" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="JobDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsApproved" Type="Boolean" />
+          <NavigationProperty Name="bothstudent" Relationship="Self.FK__JobApplic__stude__17036CC0" FromRole="JobApplications" ToRole="bothstudent" />
+        </EntityType>
+        <EntityType Name="JobDetails">
+          <Key>
+            <PropertyRef Name="JobId" />
+          </Key>
+          <Property Name="JobId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Company" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Designation" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Students" Relationship="Self.FK__JobDetail__Stude__6C190EBB" FromRole="JobDetails" ToRole="Students" />
+        </EntityType>
+        <EntityType Name="posts">
+          <Key>
+            <PropertyRef Name="p_id" />
+          </Key>
+          <Property Name="p_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="p_date" Type="DateTime" Precision="0" />
+          <Property Name="p_time" Type="Time" Precision="7" />
+          <Property Name="p_image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="e_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Student">
+          <Key>
+            <PropertyRef Name="regno" />
+          </Key>
+          <Property Name="section" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="decepline" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="regno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="courses" Relationship="Self.FK__courses__regno__6A30C649" FromRole="Student" ToRole="courses" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Student__users_i__6D0D32F4" FromRole="Student" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Students">
+          <Key>
+            <PropertyRef Name="student_id" />
+          </Key>
+          <Property Name="student_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="arid_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="phone_number" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="semester" Type="Int32" />
+          <Property Name="section" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="graduation_year" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="JobDetails" Relationship="Self.FK__JobDetail__Stude__6C190EBB" FromRole="Students" ToRole="JobDetails" />
+        </EntityType>
+        <EntityType Name="survey_questions">
+          <Key>
+            <PropertyRef Name="QuestionID" />
+          </Key>
+          <Property Name="QuestionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="QuestionText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Option1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Option2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Option3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="createsurvey" Relationship="Self.FK__survey_qu__Surve__01142BA1" FromRole="survey_questions" ToRole="createsurvey" />
+        </EntityType>
+        <EntityType Name="surveyAllumini">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="suveryId" Type="Int32" />
+          <Property Name="year" Type="Int32" />
+          <Property Name="degree" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="location" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="technology" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="surveyCurrentStudent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="surveryId" Type="Int32" />
+          <Property Name="gender" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="degree" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="semester" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="section" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SurveyQuestionOptions">
+          <Key>
+            <PropertyRef Name="OptionID" />
+          </Key>
+          <Property Name="OptionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="OptionText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SurveyResponse">
+          <Key>
+            <PropertyRef Name="SurveyResponseID" />
+          </Key>
+          <Property Name="SurveyResponseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SurveyID" Type="Int32" Nullable="false" />
+          <Property Name="SurveyQuestionID" Type="Int32" Nullable="false" />
+          <Property Name="SelectedOptionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="bothstudent" Relationship="Self.FK__SurveyRes__Stude__25518C17" FromRole="SurveyResponse" ToRole="bothstudent" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="users_id" />
+          </Key>
+          <Property Name="users_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="inrollment_date" Type="DateTime" Precision="0" />
+          <Property Name="user_password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="contact" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Alumni" Relationship="Self.FK__Alumni__users_id__693CA210" FromRole="Users" ToRole="Alumni" />
+          <NavigationProperty Name="Student" Relationship="Self.FK__Student__users_i__6D0D32F4" FromRole="Users" ToRole="Student" />
+        </EntityType>
+        <Association Name="FK__Alumni__users_id__693CA210">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Alumni" Type="Self.Alumni" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__AssignedS__Surve__160F4887">
+          <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
+          <End Role="AssignedSurvey" Type="Self.AssignedSurvey" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Completed__stude__3E1D39E1">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="CompletedSurveys" Type="Self.CompletedSurveys" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__EventComm__stude__245D67DE">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="EventComments" Type="Self.EventComments" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__JobApplic__stude__17036CC0">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="JobApplications" Type="Self.JobApplications" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__SurveyRes__Stude__25518C17">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Completed__surve__3D2915A8">
+          <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
+          <End Role="CompletedSurveys" Type="Self.CompletedSurveys" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__courses__regno__6A30C649">
+          <End Role="Student" Type="Self.Student" Multiplicity="0..1" />
+          <End Role="courses" Type="Self.courses" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__survey_qu__Surve__01142BA1">
+          <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
+          <End Role="survey_questions" Type="Self.survey_questions" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__EventComm__event__236943A5">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="EventComments" Type="Self.EventComments" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__JobDetail__Stude__6C190EBB">
+          <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
+          <End Role="JobDetails" Type="Self.JobDetails" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__Student__users_i__6D0D32F4">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Student" Type="Self.Student" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="projectdatabaseEntities10" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="admin" EntityType="Self.admin" />
+          <EntitySet Name="Alumni" EntityType="Self.Alumni" />
+          <EntitySet Name="Alumni_" EntityType="Self.Alumni_" />
+          <EntitySet Name="AssignedSurvey" EntityType="Self.AssignedSurvey" />
+          <EntitySet Name="bothstudent" EntityType="Self.bothstudent" />
+          <EntitySet Name="CompletedSurveys" EntityType="Self.CompletedSurveys" />
+          <EntitySet Name="courses" EntityType="Self.courses" />
+          <EntitySet Name="createsurvey" EntityType="Self.createsurvey" />
+          <EntitySet Name="EventComments" EntityType="Self.EventComments" />
+          <EntitySet Name="Events" EntityType="Self.Events" />
+          <EntitySet Name="JobApplications" EntityType="Self.JobApplications" />
+          <EntitySet Name="JobDetails" EntityType="Self.JobDetails" />
+          <EntitySet Name="posts" EntityType="Self.posts" />
+          <EntitySet Name="Student" EntityType="Self.Student" />
+          <EntitySet Name="Students" EntityType="Self.Students" />
+          <EntitySet Name="survey_questions" EntityType="Self.survey_questions" />
+          <EntitySet Name="surveyAllumini" EntityType="Self.surveyAllumini" />
+          <EntitySet Name="surveyCurrentStudent" EntityType="Self.surveyCurrentStudent" />
+          <EntitySet Name="SurveyQuestionOptions" EntityType="Self.SurveyQuestionOptions" />
+          <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Alumni__users_id__693CA210" Association="Self.FK__Alumni__users_id__693CA210">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Alumni" EntitySet="Alumni" />
+          </AssociationSet>
+          <AssociationSet Name="FK__AssignedS__Surve__160F4887" Association="Self.FK__AssignedS__Surve__160F4887">
+            <End Role="createsurvey" EntitySet="createsurvey" />
+            <End Role="AssignedSurvey" EntitySet="AssignedSurvey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Completed__stude__3E1D39E1" Association="Self.FK__Completed__stude__3E1D39E1">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="CompletedSurveys" EntitySet="CompletedSurveys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventComm__stude__245D67DE" Association="Self.FK__EventComm__stude__245D67DE">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="EventComments" EntitySet="EventComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobApplic__stude__17036CC0" Association="Self.FK__JobApplic__stude__17036CC0">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="JobApplications" EntitySet="JobApplications" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SurveyRes__Stude__25518C17" Association="Self.FK__SurveyRes__Stude__25518C17">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Completed__surve__3D2915A8" Association="Self.FK__Completed__surve__3D2915A8">
+            <End Role="createsurvey" EntitySet="createsurvey" />
+            <End Role="CompletedSurveys" EntitySet="CompletedSurveys" />
+          </AssociationSet>
+          <AssociationSet Name="FK__courses__regno__6A30C649" Association="Self.FK__courses__regno__6A30C649">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="courses" EntitySet="courses" />
+          </AssociationSet>
+          <AssociationSet Name="FK__survey_qu__Surve__01142BA1" Association="Self.FK__survey_qu__Surve__01142BA1">
+            <End Role="createsurvey" EntitySet="createsurvey" />
+            <End Role="survey_questions" EntitySet="survey_questions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__EventComm__event__236943A5" Association="Self.FK__EventComm__event__236943A5">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="EventComments" EntitySet="EventComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__JobDetail__Stude__6C190EBB" Association="Self.FK__JobDetail__Stude__6C190EBB">
+            <End Role="Students" EntitySet="Students" />
+            <End Role="JobDetails" EntitySet="JobDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Student__users_i__6D0D32F4" Association="Self.FK__Student__users_i__6D0D32F4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Student" EntitySet="Student" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="projectdatabaseModelStoreContainer" CdmEntityContainer="projectdatabaseEntities10">
+          <EntitySetMapping Name="admin">
+            <EntityTypeMapping TypeName="projectdatabaseModel.admin">
+              <MappingFragment StoreEntitySet="admin">
+                <ScalarProperty Name="admin_id" ColumnName="admin_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alumni">
+            <EntityTypeMapping TypeName="projectdatabaseModel.Alumni">
+              <MappingFragment StoreEntitySet="Alumni">
+                <ScalarProperty Name="jobstatus" ColumnName="jobstatus" />
+                <ScalarProperty Name="complition_date" ColumnName="complition_date" />
+                <ScalarProperty Name="regno" ColumnName="regno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Alumni_">
+            <EntityTypeMapping TypeName="projectdatabaseModel.Alumni_">
+              <MappingFragment StoreEntitySet="Alumni_">
+                <ScalarProperty Name="alumni_id" ColumnName="alumni_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="graduation_year" ColumnName="graduation_year" />
+                <ScalarProperty Name="arid_number" ColumnName="arid_number" />
+                <ScalarProperty Name="technology" ColumnName="technology" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AssignedSurvey">
+            <EntityTypeMapping TypeName="projectdatabaseModel.AssignedSurvey">
+              <MappingFragment StoreEntitySet="AssignedSurvey">
+                <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="Semester" ColumnName="Semester" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+                <ScalarProperty Name="GraduationYear" ColumnName="GraduationYear" />
+                <ScalarProperty Name="studentType" ColumnName="studentType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="bothstudent">
+            <EntityTypeMapping TypeName="projectdatabaseModel.bothstudent">
+              <MappingFragment StoreEntitySet="bothstudent">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="arid_number" ColumnName="arid_number" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="graduation_year" ColumnName="graduation_year" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="Technology" ColumnName="Technology" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompletedSurveys">
+            <EntityTypeMapping TypeName="projectdatabaseModel.CompletedSurveys">
+              <MappingFragment StoreEntitySet="CompletedSurveys">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="answer" ColumnName="answer" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="courses">
+            <EntityTypeMapping TypeName="projectdatabaseModel.courses">
+              <MappingFragment StoreEntitySet="courses">
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="credit_hour" ColumnName="credit_hour" />
+                <ScalarProperty Name="course_code" ColumnName="course_code" />
+                <ScalarProperty Name="course_grade" ColumnName="course_grade" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="createsurvey">
+            <EntityTypeMapping TypeName="projectdatabaseModel.createsurvey">
+              <MappingFragment StoreEntitySet="createsurvey">
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="SurveyTitle" ColumnName="SurveyTitle" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventComments">
+            <EntityTypeMapping TypeName="projectdatabaseModel.EventComments">
+              <MappingFragment StoreEntitySet="EventComments">
+                <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+                <ScalarProperty Name="comment" ColumnName="comment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Events">
+            <EntityTypeMapping TypeName="projectdatabaseModel.Events">
+              <MappingFragment StoreEntitySet="Events">
+                <ScalarProperty Name="event_id" ColumnName="event_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
+                <ScalarProperty Name="event_date" ColumnName="event_date" />
+                <ScalarProperty Name="venue" ColumnName="venue" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="image_path" ColumnName="image_path" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobApplications">
+            <EntityTypeMapping TypeName="projectdatabaseModel.JobApplications">
+              <MappingFragment StoreEntitySet="JobApplications">
+                <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+                <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="JobDescription" ColumnName="JobDescription" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="JobDetails">
+            <EntityTypeMapping TypeName="projectdatabaseModel.JobDetails">
+              <MappingFragment StoreEntitySet="JobDetails">
+                <ScalarProperty Name="JobId" ColumnName="JobId" />
+                <ScalarProperty Name="Company" ColumnName="Company" />
+                <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="posts">
+            <EntityTypeMapping TypeName="projectdatabaseModel.posts">
+              <MappingFragment StoreEntitySet="posts">
+                <ScalarProperty Name="p_id" ColumnName="p_id" />
+                <ScalarProperty Name="p_date" ColumnName="p_date" />
+                <ScalarProperty Name="p_time" ColumnName="p_time" />
+                <ScalarProperty Name="p_image" ColumnName="p_image" />
+                <ScalarProperty Name="e_id" ColumnName="e_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Student">
+            <EntityTypeMapping TypeName="projectdatabaseModel.Student">
+              <MappingFragment StoreEntitySet="Student">
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="decepline" ColumnName="decepline" />
+                <ScalarProperty Name="regno" ColumnName="regno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Students">
+            <EntityTypeMapping TypeName="projectdatabaseModel.Students">
+              <MappingFragment StoreEntitySet="Students">
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="arid_number" ColumnName="arid_number" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="phone_number" ColumnName="phone_number" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="section" ColumnName="section" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="graduation_year" ColumnName="graduation_year" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="survey_questions">
+            <EntityTypeMapping TypeName="projectdatabaseModel.survey_questions">
+              <MappingFragment StoreEntitySet="survey_questions">
+                <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+                <ScalarProperty Name="QuestionText" ColumnName="QuestionText" />
+                <ScalarProperty Name="Option1" ColumnName="Option1" />
+                <ScalarProperty Name="Option2" ColumnName="Option2" />
+                <ScalarProperty Name="Option3" ColumnName="Option3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="surveyAllumini">
+            <EntityTypeMapping TypeName="projectdatabaseModel.surveyAllumini">
+              <MappingFragment StoreEntitySet="surveyAllumini">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="suveryId" ColumnName="suveryId" />
+                <ScalarProperty Name="year" ColumnName="year" />
+                <ScalarProperty Name="degree" ColumnName="degree" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="technology" ColumnName="technology" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="surveyCurrentStudent">
+            <EntityTypeMapping TypeName="projectdatabaseModel.surveyCurrentStudent">
+              <MappingFragment StoreEntitySet="surveyCurrentStudent">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="surveryId" ColumnName="surveryId" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="degree" ColumnName="degree" />
+                <ScalarProperty Name="semester" ColumnName="semester" />
+                <ScalarProperty Name="section" ColumnName="section" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurveyQuestionOptions">
+            <EntityTypeMapping TypeName="projectdatabaseModel.SurveyQuestionOptions">
+              <MappingFragment StoreEntitySet="SurveyQuestionOptions">
+                <ScalarProperty Name="OptionID" ColumnName="OptionID" />
+                <ScalarProperty Name="SurveyQuestionID" ColumnName="SurveyQuestionID" />
+                <ScalarProperty Name="OptionText" ColumnName="OptionText" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SurveyResponse">
+            <EntityTypeMapping TypeName="projectdatabaseModel.SurveyResponse">
+              <MappingFragment StoreEntitySet="SurveyResponse">
+                <ScalarProperty Name="SurveyResponseID" ColumnName="SurveyResponseID" />
+                <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+                <ScalarProperty Name="SurveyQuestionID" ColumnName="SurveyQuestionID" />
+                <ScalarProperty Name="SelectedOptionID" ColumnName="SelectedOptionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="projectdatabaseModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="users_id" ColumnName="users_id" />
+                <ScalarProperty Name="inrollment_date" ColumnName="inrollment_date" />
+                <ScalarProperty Name="user_password" ColumnName="user_password" />
+                <ScalarProperty Name="user_type" ColumnName="user_type" />
+                <ScalarProperty Name="user_fname" ColumnName="user_fname" />
+                <ScalarProperty Name="user_lname" ColumnName="user_lname" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="FK__Alumni__users_id__693CA210" TypeName="projectdatabaseModel.FK__Alumni__users_id__693CA210" StoreEntitySet="Alumni">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="users_id" ColumnName="users_id" />
+            </EndProperty>
+            <EndProperty Name="Alumni">
+              <ScalarProperty Name="regno" ColumnName="regno" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="users_id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__AssignedS__Surve__160F4887" TypeName="projectdatabaseModel.FK__AssignedS__Surve__160F4887" StoreEntitySet="AssignedSurvey">
+            <EndProperty Name="createsurvey">
+              <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+            </EndProperty>
+            <EndProperty Name="AssignedSurvey">
+              <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="SurveyID" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__Completed__stude__3E1D39E1" TypeName="projectdatabaseModel.FK__Completed__stude__3E1D39E1" StoreEntitySet="CompletedSurveys">
+            <EndProperty Name="bothstudent">
+              <ScalarProperty Name="student_id" ColumnName="student_id" />
+            </EndProperty>
+            <EndProperty Name="CompletedSurveys">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="student_id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__EventComm__stude__245D67DE" TypeName="projectdatabaseModel.FK__EventComm__stude__245D67DE" StoreEntitySet="EventComments">
+            <EndProperty Name="bothstudent">
+              <ScalarProperty Name="student_id" ColumnName="student_id" />
+            </EndProperty>
+            <EndProperty Name="EventComments">
+              <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="student_id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__JobApplic__stude__17036CC0" TypeName="projectdatabaseModel.FK__JobApplic__stude__17036CC0" StoreEntitySet="JobApplications">
+            <EndProperty Name="bothstudent">
+              <ScalarProperty Name="student_id" ColumnName="student_id" />
+            </EndProperty>
+            <EndProperty Name="JobApplications">
+              <ScalarProperty Name="ApplicationID" ColumnName="ApplicationID" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="student_id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__SurveyRes__Stude__25518C17" TypeName="projectdatabaseModel.FK__SurveyRes__Stude__25518C17" StoreEntitySet="SurveyResponse">
+            <EndProperty Name="bothstudent">
+              <ScalarProperty Name="student_id" ColumnName="StudentID" />
+            </EndProperty>
+            <EndProperty Name="SurveyResponse">
+              <ScalarProperty Name="SurveyResponseID" ColumnName="SurveyResponseID" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="StudentID" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__Completed__surve__3D2915A8" TypeName="projectdatabaseModel.FK__Completed__surve__3D2915A8" StoreEntitySet="CompletedSurveys">
+            <EndProperty Name="createsurvey">
+              <ScalarProperty Name="SurveyID" ColumnName="surveyId" />
+            </EndProperty>
+            <EndProperty Name="CompletedSurveys">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="surveyId" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__courses__regno__6A30C649" TypeName="projectdatabaseModel.FK__courses__regno__6A30C649" StoreEntitySet="courses">
+            <EndProperty Name="Student">
+              <ScalarProperty Name="regno" ColumnName="regno" />
+            </EndProperty>
+            <EndProperty Name="courses">
+              <ScalarProperty Name="course_code" ColumnName="course_code" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="regno" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__survey_qu__Surve__01142BA1" TypeName="projectdatabaseModel.FK__survey_qu__Surve__01142BA1" StoreEntitySet="survey_questions">
+            <EndProperty Name="createsurvey">
+              <ScalarProperty Name="SurveyID" ColumnName="SurveyID" />
+            </EndProperty>
+            <EndProperty Name="survey_questions">
+              <ScalarProperty Name="QuestionID" ColumnName="QuestionID" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="SurveyID" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__EventComm__event__236943A5" TypeName="projectdatabaseModel.FK__EventComm__event__236943A5" StoreEntitySet="EventComments">
+            <EndProperty Name="Events">
+              <ScalarProperty Name="event_id" ColumnName="event_id" />
+            </EndProperty>
+            <EndProperty Name="EventComments">
+              <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="event_id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__JobDetail__Stude__6C190EBB" TypeName="projectdatabaseModel.FK__JobDetail__Stude__6C190EBB" StoreEntitySet="JobDetails">
+            <EndProperty Name="Students">
+              <ScalarProperty Name="student_id" ColumnName="StudentID" />
+            </EndProperty>
+            <EndProperty Name="JobDetails">
+              <ScalarProperty Name="JobId" ColumnName="JobId" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="StudentID" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__Student__users_i__6D0D32F4" TypeName="projectdatabaseModel.FK__Student__users_i__6D0D32F4" StoreEntitySet="Student">
+            <EndProperty Name="Users">
+              <ScalarProperty Name="users_id" ColumnName="users_id" />
+            </EndProperty>
+            <EndProperty Name="Student">
+              <ScalarProperty Name="regno" ColumnName="regno" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="users_id" />
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="false" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
