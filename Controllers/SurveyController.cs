@@ -639,6 +639,7 @@ namespace studentminiportal.Controllers
         }
 
         // updating the population
+        // Updating the data for the github account
         [HttpGet]
         public HttpResponseMessage FetchTheCurrentPopulation(int surveyId)
         {
