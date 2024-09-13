@@ -77,7 +77,7 @@ namespace studentminiportal.Controllers
         }
         ///Searching OF students
         [HttpGet]
-        public HttpResponseMessage GetStudents(int graduationYear, string department, string section)
+        public HttpResponseMessage GetStudents(string graduationYear, string department, string section)
         {
             try
             {

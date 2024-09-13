@@ -233,6 +233,12 @@ namespace studentminiportal.Controllers
             }
         }
 
+
+            // Survey date management
+/*                                            && s.createsurvey.StartDate <= currentDate
+                                    && s.createsurvey.EndDate >= currentDate.Date*/
+                                
+
         // fetching all the surveys as the student's info
         [HttpGet]
         public HttpResponseMessage SurveyFetchingAsStudentInfo(string StudentId)
@@ -256,7 +262,8 @@ namespace studentminiportal.Controllers
                                     && s.Semester == studentfetching.semester
                                     && s.Gender == gender
                                     && s.Department == studentfetching.department
-                                    && s.createsurvey.EndDate > currentDate.Date
+                                    //&& s.createsurvey.StartDate <= currentDate
+                                    && s.createsurvey.EndDate >= currentDate.Date
                                     && !db.CompletedSurveys.Any(cs => cs.createsurvey.SurveyID == s.createsurvey.SurveyID && cs.bothstudent.student_id == studentfetching.student_id))
                         .Select(s => new
                         {
