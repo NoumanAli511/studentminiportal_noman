@@ -13,7 +13,7 @@ namespace studentminiportal
         {
             // Web API configuration and services
             config.EnableCors();
-            var enableCor = new EnableCorsAttribute("*", "*", "*");
+            var enableCor = new EnableCorsAttribute("*", "*", "*"); 
             config.EnableCors(enableCor);
             // Web API routes
             config.MapHttpAttributeRoutes();

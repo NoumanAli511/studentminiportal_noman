@@ -217,31 +217,30 @@ namespace studentminiportal.Controllers
             }
         }
 
+        
 
 
+        /* [HttpDelete]
+         [Route("api/Events/DeleteEvent/{id}")]
+         public HttpResponseMessage DeleteEvent(int id)
+         {
+             try
+             {
+                 var eventItem = db.Events.Find(id);
+                 if (eventItem == null)
+                 {
+                     return Request.CreateResponse(HttpStatusCode.NotFound, new { message = "Event not found" });
+                 }
 
+                 db.Events.Remove(eventItem);
+                 db.SaveChanges();
 
-       /* [HttpDelete]
-        [Route("api/Events/DeleteEvent/{id}")]
-        public HttpResponseMessage DeleteEvent(int id)
-        {
-            try
-            {
-                var eventItem = db.Events.Find(id);
-                if (eventItem == null)
-                {
-                    return Request.CreateResponse(HttpStatusCode.NotFound, new { message = "Event not found" });
-                }
-
-                db.Events.Remove(eventItem);
-                db.SaveChanges();
-
-                return Request.CreateResponse(HttpStatusCode.OK, new { message = "Event deleted successfully" });
-            }
-            catch (Exception e)
-            {
-                return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
-            }
-        }*/
+                 return Request.CreateResponse(HttpStatusCode.OK, new { message = "Event deleted successfully" });
+             }
+             catch (Exception e)
+             {
+                 return Request.CreateResponse(HttpStatusCode.BadRequest, e.Message);
+             }
+         }*/
     }
 }

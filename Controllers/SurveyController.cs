@@ -167,6 +167,8 @@ namespace studentminiportal.Controllers
 
         }
 
+
+
         //Dropdown of the Surveys on the admin side
         [HttpGet]
         public HttpResponseMessage FetchAllSurveys()
@@ -178,7 +180,7 @@ namespace studentminiportal.Controllers
                     surveyID = s.SurveyID,
                     title=s.SurveyTitle,
                     startDate = s.StartDate,
-                    endDate= s.EndDate
+                    endDate= s.EndDate.ToString()
                 }).Distinct().ToList();
                 if (listOfSurveysConducted.Count > 0)
                 {
@@ -195,8 +197,12 @@ namespace studentminiportal.Controllers
             }
         }
 
+        /*[HttpPost]
+        public HttpResponseMessage DeleteSurvey(int surveyId)
+        {
 
-        
+        }
+        */
 
         [HttpPost]
         public HttpResponseMessage SurveyCurrentStudent(List<surveyCurrentStudent> data)
@@ -250,7 +256,7 @@ namespace studentminiportal.Controllers
                                     && s.Semester == studentfetching.semester
                                     && s.Gender == gender
                                     && s.Department == studentfetching.department
-                                    && s.createsurvey.EndDate > currentDate
+                                    && s.createsurvey.EndDate > currentDate.Date
                                     && !db.CompletedSurveys.Any(cs => cs.createsurvey.SurveyID == s.createsurvey.SurveyID && cs.bothstudent.student_id == studentfetching.student_id))
                         .Select(s => new
                         {
@@ -286,7 +292,7 @@ namespace studentminiportal.Controllers
                                     && s.City == studentfetching.address
                                     && s.Department == studentfetching.department
                                     && s.GraduationYear.ToString() == studentfetching.graduation_year
-                                    && s.Gender == gender
+                                  && s.Gender == gender
                                     && s.Technology == studentfetching.Technology
                                     && s.createsurvey.EndDate > currentDate
                                     && !db.CompletedSurveys.Any(cs => cs.createsurvey.SurveyID == s.createsurvey.SurveyID && cs.bothstudent.student_id == studentfetching.student_id))
@@ -496,6 +502,345 @@ namespace studentminiportal.Controllers
                 }
                 int RowsEffected=db.SaveChanges();
                 return Request.CreateResponse("Job Application Updated");
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+
+        // Survey Editing and updating the Surveys
+        [HttpGet]
+        public HttpResponseMessage FetchSingleSurvey(int surveyId)
+        {
+            try
+            {
+                var surveyFinding = db.createsurvey.Where(s => s.SurveyID == surveyId).Select(s =>
+                new {
+                    s.SurveyID,
+                    s.EndDate,
+                    s.StartDate,
+                    s.SurveyTitle
+                }).FirstOrDefault();
+                if (surveyFinding == null)
+                {
+                    return Request.CreateResponse("Not founded");
+                }
+                return Request.CreateResponse(surveyFinding);
+            }
+            catch (Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+        [HttpPost]
+        public HttpResponseMessage UpdatingSurvey(int surveyId, string surveyTitle, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                var SurveyFinding = db.createsurvey.Where(s => s.SurveyID == surveyId).FirstOrDefault();
+                if (SurveyFinding == null)
+                {
+                    return Request.CreateResponse("Not founded");
+                }
+                SurveyFinding.SurveyTitle = surveyTitle;
+                SurveyFinding.StartDate = startDate;
+                SurveyFinding.EndDate = startDate;
+                int RowsEffected=db.SaveChanges();
+                return Request.CreateResponse("Updated the Survey");
+            }
+            catch (Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+
+        [HttpGet]
+        public HttpResponseMessage fetchQuestions(int surveyId)
+        {
+            try
+            {
+                var SurveyFinding = db.createsurvey.Where(s => s.SurveyID == surveyId).FirstOrDefault();
+                if (SurveyFinding == null)
+                {
+                    return Request.CreateResponse("Survey Finding");
+                }
+                var QuestionsOnSurvey = db.survey_questions.Where(s => s.createsurvey.SurveyID == surveyId).Select(s => new
+                {
+                    s.QuestionID,
+                    s.QuestionText,
+                    s.Option1,
+                    s.Option2,
+                    s.Option3,
+                    s.createsurvey.SurveyID
+                }).Distinct().ToList();
+                if (QuestionsOnSurvey == null)
+                {
+                    return Request.CreateResponse("Questions not Founded");
+                }
+                return Request.CreateResponse(QuestionsOnSurvey);
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+        //Update the Survey Questions
+        [HttpPost]
+        public HttpResponseMessage UpdateSurveyQuestions(List<QuestionAdding> Questions)
+        {
+            try
+            {
+                survey_questions survey_question = new survey_questions();
+                if (Questions != null)
+                {
+                    foreach (var question in Questions)
+                    {
+                        if (question.questionId ==0)
+                        {
+                            var surveyFinding = db.createsurvey.Where(s => s.SurveyID == question.surveyID).FirstOrDefault();
+                            if (surveyFinding == null)
+                            {
+                                return Request.CreateResponse("Survey not fonded");
+                            }
+                            survey_question.QuestionText = question.questionText;
+                            survey_question.Option1 = question.option1;
+                            survey_question.Option2 = question.option2;
+                            survey_question.Option3 = question.option3;
+                            survey_question.createsurvey = surveyFinding;
+                            db.survey_questions.Add(survey_question);
+                        }
+                        else
+                        {
+                            var questionFinding = db.survey_questions.Where(s => s.QuestionID == question.questionId).FirstOrDefault();
+                            if (questionFinding == null)
+                            {
+                                return Request.CreateResponse("Question not founded");
+                            }
+                            questionFinding.QuestionText = question.questionText;
+                            questionFinding.Option1 = question.option1;
+                            questionFinding.Option2 = question.option2;
+                            questionFinding.Option3 = question.option3;
+                            db.SaveChanges();
+                        }
+                    }
+                }
+                else
+                {
+                    return Request.CreateResponse("Questions must not be empty");
+                }
+                            
+                int RowsEffected = db.SaveChanges();
+                return Request.CreateResponse("Questions Updated "+RowsEffected);
+            }
+            catch (Exception cp)
+            {
+                return Request.CreateResponse(cp.Message + ":" + cp.InnerException);
+            }
+
+        }
+
+        // updating the population
+        [HttpGet]
+        public HttpResponseMessage FetchTheCurrentPopulation(int surveyId)
+        {
+            try
+            {
+                var surveyFinding = db.createsurvey.Where(s => s.SurveyID == surveyId).FirstOrDefault();
+                if (surveyFinding == null)
+                {
+                    return Request.CreateResponse("Survey Not Founded");
+                }
+                var Population = db.AssignedSurvey.Where(s => s.createsurvey.SurveyID == surveyFinding.SurveyID && s.studentType=="current").Select(s => new
+                {
+                    s.Section,
+                    s.Semester,
+                    s.Gender,
+                    s.Department,
+                    s.studentType,
+                    s.createsurvey.SurveyID,
+                    s.AssignmentID
+                }).Distinct().ToList();
+                if (Population == null)
+                {
+                    return Request.CreateResponse("Population Not Founded");
+                }
+                return Request.CreateResponse(Population);
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+        //Fetching the AlumniPopulation
+        [HttpGet]
+        public HttpResponseMessage FetchTheAlumniPopulation(int surveyId)
+        {
+            try
+            {
+                var surveyFinding = db.createsurvey.Where(s => s.SurveyID == surveyId).FirstOrDefault();
+                if (surveyFinding == null)
+                {
+                    return Request.CreateResponse("Survey Not Founded");
+                }
+                var Population = db.AssignedSurvey.Where(s => s.createsurvey.SurveyID == surveyFinding.SurveyID && s.studentType == "alumni").Select(s => new
+                {
+                    s.Gender,
+                    s.City,
+                    s.Department,
+                    s.studentType,
+                    s.Technology,
+                    s.GraduationYear,
+                    s.createsurvey.SurveyID,
+                    s.AssignmentID
+                }).Distinct().ToList();
+                if (Population == null)
+                {
+                    return Request.CreateResponse("Population Not Founded");
+                }
+                return Request.CreateResponse(Population);
+            }
+            catch (Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+
+
+
+        //Manage Population Edit
+        [HttpPost]
+public HttpResponseMessage ManagePopulationUpdating(StudentSurveyPopulation surveyPopulation)
+{
+    try
+    {
+        if (surveyPopulation != null)
+        {
+            var survey = db.createsurvey.Where(s => s.SurveyID == surveyPopulation.surveyID).FirstOrDefault();
+            if (survey == null) return Request.CreateResponse(HttpStatusCode.NotFound, "Survey Not found");
+
+            var studentType = surveyPopulation.studentType;
+
+            if (studentType == "current")
+            {
+                if (surveyPopulation.degree == null || surveyPopulation.semester == null || surveyPopulation.section == null || surveyPopulation.AssignmentId == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "Missing required fields for current students");
+                }
+
+                foreach (var degree in surveyPopulation.degree)
+                {
+                    foreach (var semester in surveyPopulation.semester)
+                    {
+                        foreach (var section in surveyPopulation.section)
+                        {
+                            foreach (var assignmentId in surveyPopulation.AssignmentId)
+                            {
+                                var AssignmentFounding = db.AssignedSurvey.Where(s => s.AssignmentID == assignmentId).FirstOrDefault();
+                                if (AssignmentFounding != null)
+                                {
+                                    AssignmentFounding.Department = degree;
+                                    AssignmentFounding.Semester = semester;
+                                    AssignmentFounding.Section = section;
+                                    AssignmentFounding.Gender = surveyPopulation.gender;
+                                    AssignmentFounding.studentType = studentType;
+                                    AssignmentFounding.createsurvey = survey;
+                                }
+                            }
+                            AssignedSurvey population = new AssignedSurvey
+                            {
+                                Department = degree,
+                                Semester = semester,
+                                Section = section,
+                                Gender = surveyPopulation.gender,
+                                City = null, // Set as necessary
+                                Technology = null, // Set as necessary
+                                GraduationYear = 0, // Set as necessary
+                                studentType = studentType,
+                                createsurvey = survey,
+                            };
+                            db.AssignedSurvey.Add(population);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (surveyPopulation.address == null || surveyPopulation.Technology == null || surveyPopulation.graduation == null || surveyPopulation.degree == null || surveyPopulation.AssignmentId == null)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest, "Missing required fields for alumni students");
+                }
+
+                foreach (var city in surveyPopulation.address)
+                {
+                    foreach (var technology in surveyPopulation.Technology)
+                    {
+                        foreach (var graduationYear in surveyPopulation.graduation)
+                        {
+                            foreach (var assignmentId in surveyPopulation.AssignmentId)
+                            {
+                                var AssignmentFounding = db.AssignedSurvey.Where(s => s.AssignmentID == assignmentId).FirstOrDefault();
+                                if (AssignmentFounding != null)
+                                {
+                                    AssignmentFounding.Department = surveyPopulation.degree.FirstOrDefault(); // Check if degree is empty
+                                    AssignmentFounding.Gender = surveyPopulation.gender;
+                                    AssignmentFounding.City = city;
+                                    AssignmentFounding.Technology = technology;
+                                    AssignmentFounding.GraduationYear = graduationYear;
+                                    AssignmentFounding.studentType = studentType;
+                                    AssignmentFounding.createsurvey = survey;
+                                }
+                            }
+                            AssignedSurvey assignedSurvey = new AssignedSurvey
+                            {
+                                Department = surveyPopulation.degree.FirstOrDefault(), // Check if degree is empty
+                                Semester = null,
+                                Section = null,
+                                Gender = surveyPopulation.gender,
+                                City = city,
+                                Technology = technology,
+                                GraduationYear = graduationYear,
+                                createsurvey = survey,
+                                studentType = studentType,
+                            };
+
+                            db.AssignedSurvey.Add(assignedSurvey);
+                        }
+                    }
+                }
+            }
+            int RowsEffected = db.SaveChanges();
+            if (RowsEffected != 0)
+            {
+                return Request.CreateResponse(HttpStatusCode.OK, "Data successfully inserted");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, "Data Not inserted");
+        }
+        else
+        {
+            return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid data");
+        }
+    }
+    catch (Exception ex)
+    {
+        return Request.CreateResponse(HttpStatusCode.InternalServerError, "Error: " + ex.Message);
+    }
+}
+
+        [HttpGet]
+        public HttpResponseMessage DeleteQuestionFromSurveyQuestions(int questionId)
+        {
+            try
+            {
+                var questionFinding = db.survey_questions.Where(s => s.QuestionID == questionId).FirstOrDefault();
+                if (questionFinding == null)
+                {
+                    return Request.CreateResponse("Question not founded");
+                }
+                db.survey_questions.Remove(questionFinding);
+                int RowsEffected = db.SaveChanges();
+                if (RowsEffected > 0)
+                {
+                    return Request.CreateResponse("Question Deleted");
+                }
+                return Request.CreateResponse("Question Not Deleted");
             }catch(Exception cp)
             {
                 return Request.CreateResponse(cp.Message);
