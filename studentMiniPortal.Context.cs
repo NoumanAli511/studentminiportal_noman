@@ -13,10 +13,10 @@ namespace studentminiportal
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class projectdatabaseEntities10 : DbContext
+    public partial class projectdatabaseEntities12 : DbContext
     {
-        public projectdatabaseEntities10()
-            : base("name=projectdatabaseEntities10")
+        public projectdatabaseEntities12()
+            : base("name=projectdatabaseEntities12")
         {
         }
     
@@ -30,6 +30,7 @@ namespace studentminiportal
         public virtual DbSet<Alumni_> Alumni_ { get; set; }
         public virtual DbSet<AssignedSurvey> AssignedSurvey { get; set; }
         public virtual DbSet<bothstudent> bothstudent { get; set; }
+        public virtual DbSet<commentedOnEvent> commentedOnEvent { get; set; }
         public virtual DbSet<CompletedSurveys> CompletedSurveys { get; set; }
         public virtual DbSet<courses> courses { get; set; }
         public virtual DbSet<createsurvey> createsurvey { get; set; }
@@ -46,5 +47,6 @@ namespace studentminiportal
         public virtual DbSet<SurveyQuestionOptions> SurveyQuestionOptions { get; set; }
         public virtual DbSet<SurveyResponse> SurveyResponse { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<ViewedEvents> ViewedEvents { get; set; }
     }
 }

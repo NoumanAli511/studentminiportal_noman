@@ -12,7 +12,7 @@ namespace studentminiportal.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class StudentController : ApiController
     {
-        projectdatabaseEntities10 db = new projectdatabaseEntities10();
+        projectdatabaseEntities12 db = new projectdatabaseEntities12();
         [HttpGet]
 
         public HttpResponseMessage Login(string aridno, string password)
@@ -508,24 +508,31 @@ namespace studentminiportal.Controllers
                     return Request.CreateResponse(student);
                 }
 
-                var eventExists = db.Events.Any(e => e.event_id == eventId);
-                if (!eventExists)
+                var eventExists = db.Events.FirstOrDefault(e => e.event_id == eventId);
+                if (eventExists==null)
                 {
                     return Request.CreateResponse(student);
                 }
 
-                /*var newComment = new EventComments
+                var studentFinding = db.bothstudent.Where(s => s.student_id == studentId).FirstOrDefault();
+                if (studentFinding == null)
                 {
-                    event_id = eventId,
-                    StudentId = studentId,
-                    Comment = comment,
-                //    Timestamp = DateTime.Now
+                    return Request.CreateResponse("student not founded");
+                }
+                var newComment = new commentedOnEvent
+                {
+                    Events=eventExists,
+                    bothstudent=studentFinding,
+                    commentText=comment,
+                    date = DateTime.Now
                 };
-*/
-  //              db.EventComments.Add(newComment);
-               db.SaveChanges();
-
-                return Request.CreateResponse("Succesfully Comment");
+                db.commentedOnEvent.Add(newComment);
+                 int RowsEffected=db.SaveChanges();
+                if (RowsEffected > 1)
+                {
+                    return Request.CreateResponse("Succesfully Comment");
+                }
+                return Request.CreateResponse("Not inserted");
             }
             catch (Exception ex)
             {
@@ -533,6 +540,96 @@ namespace studentminiportal.Controllers
             }
         }
 
+        //getting all comments=
+        [HttpGet]
+        public HttpResponseMessage FetchingAllCommits(int eventId)
+        {
+            try
+            {
+                var eventFinding = db.Events.Where(s => s.event_id == eventId).FirstOrDefault();
+                if (eventFinding == null)
+                {
+                    return Request.CreateResponse("Event Not founded");
+                }
+                var EventsComments = db.commentedOnEvent.Where(s => s.Events.event_id == eventFinding.event_id).Select(s => new
+                {
+                    s.commentText,
+                    s.bothstudent.arid_number,
+                    s.bothstudent.student_id,
+                    s.id,
+                    s.Events.event_id,
+                    s.date,
+                    s.bothstudent.name
+                }).Distinct().ToList();
+                if (EventsComments == null)
+                {
+                    return Request.CreateResponse("Comments not founded");
+                }
+                return Request.CreateResponse(EventsComments);
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
 
+        [HttpPost]
+        public HttpResponseMessage MarkAsViewed(int eventId,int student_id)
+        {
+            try
+            {
+                var eventFinding = db.Events.Where(s => s.event_id == eventId).FirstOrDefault();
+                if (eventFinding == null)
+                {
+                    return Request.CreateResponse("Event Not founded");
+                }   
+                var studentFinding = db.bothstudent.Where(s => s.student_id == student_id).FirstOrDefault();
+                if (studentFinding == null)
+                {
+                    return Request.CreateResponse("Student not founded");
+                }
+                var ViewedEventFinding = db.ViewedEvents.Where(s => s.bothstudent.student_id == student_id && s.Events.event_id == eventId).FirstOrDefault();
+                if (ViewedEventFinding != null) {
+                    return Request.CreateResponse("View Added Already");
+                }
+                var ViewedEvent = new ViewedEvents
+                {
+                    bothstudent=studentFinding,
+                    Events=eventFinding
+                };
+                db.ViewedEvents.Add(ViewedEvent);
+                db.SaveChanges();
+                return Request.CreateResponse("Viewed Successfully");
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+        [HttpGet]
+        public HttpResponseMessage fetchAllViewedEvent(int eventId)
+        {
+            try
+            {
+                var EventFiding = db.Events.Where(s => s.event_id == eventId).FirstOrDefault();
+                if (EventFiding == null)
+                {
+                    return Request.CreateResponse("Event not founded");
+                }
+                var ViewedPeople = db.ViewedEvents.Where(s => s.Events.event_id == EventFiding.event_id).Select(s => new
+                {
+                    s.id,
+                    s.bothstudent.name,
+                    s.bothstudent.arid_number,
+                    s.bothstudent.student_id,
+                }).Distinct().ToList();
+                if (ViewedPeople == null)
+                {
+                    return Request.CreateResponse("No Views");
+                }
+                return Request.CreateResponse(ViewedPeople);
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
     }
 }

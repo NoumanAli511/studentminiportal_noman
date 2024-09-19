@@ -17,10 +17,12 @@ namespace studentminiportal
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public bothstudent()
         {
+            this.commentedOnEvent = new HashSet<commentedOnEvent>();
             this.CompletedSurveys = new HashSet<CompletedSurveys>();
             this.EventComments = new HashSet<EventComments>();
             this.JobApplications = new HashSet<JobApplications>();
             this.SurveyResponse = new HashSet<SurveyResponse>();
+            this.ViewedEvents = new HashSet<ViewedEvents>();
         }
     
         public int student_id { get; set; }
@@ -39,6 +41,8 @@ namespace studentminiportal
         public string Technology { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<commentedOnEvent> commentedOnEvent { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CompletedSurveys> CompletedSurveys { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventComments> EventComments { get; set; }
@@ -46,5 +50,7 @@ namespace studentminiportal
         public virtual ICollection<JobApplications> JobApplications { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<SurveyResponse> SurveyResponse { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ViewedEvents> ViewedEvents { get; set; }
     }
 }

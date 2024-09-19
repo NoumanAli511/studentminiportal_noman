@@ -218,81 +218,84 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="studentMiniPortal.Context.tt">
+    <Content Include="studentminiportal.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>studentMiniPortal.edmx</DependentUpon>
-      <LastGenOutput>studentMiniPortal.Context.cs</LastGenOutput>
+      <DependentUpon>studentminiportal.edmx</DependentUpon>
+      <LastGenOutput>studentminiportal.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="studentMiniPortal.tt">
+    <Content Include="studentminiportal.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>studentMiniPortal.edmx</DependentUpon>
-      <LastGenOutput>studentMiniPortal.cs</LastGenOutput>
+      <DependentUpon>studentminiportal.edmx</DependentUpon>
+      <LastGenOutput>studentminiportal.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="admin.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="Alumni.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="Alumni_.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="AssignedSurvey.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="bothstudent.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="commentedOnEvent.cs">
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="CompletedSurveys.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\ApplicationDbContext.cs" />
     <Compile Include="courses.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="createsurvey.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="EventComments.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="Events.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="JobApplications.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="JobDetails.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="posts.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="QuestionAndOptions.cs" />
     <Compile Include="SaveSurveyResponse.cs" />
     <Compile Include="Student.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
-    <Compile Include="studentMiniPortal.Context.cs">
+    <Compile Include="studentminiportal.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>studentMiniPortal.Context.tt</DependentUpon>
+      <DependentUpon>studentminiportal.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="studentMiniPortal.cs">
+    <Compile Include="studentminiportal.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
-    <Compile Include="studentMiniPortal.Designer.cs">
+    <Compile Include="studentminiportal.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>studentMiniPortal.edmx</DependentUpon>
+      <DependentUpon>studentminiportal.edmx</DependentUpon>
     </Compile>
     <Compile Include="Students.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="StudentSurveyPopulation.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -306,32 +309,35 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QuestionAdding.cs" />
     <Compile Include="surveyAllumini.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="surveyCurrentStudent.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="SurveyQuestionOptions.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="SurveyResponse.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="survey_questions.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
     <Compile Include="Users.cs">
-      <DependentUpon>studentMiniPortal.tt</DependentUpon>
+      <DependentUpon>studentminiportal.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ViewedEvents.cs">
+      <DependentUpon>studentminiportal.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <EntityDeploy Include="studentMiniPortal.edmx">
+    <EntityDeploy Include="studentminiportal.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>studentMiniPortal.Designer.cs</LastGenOutput>
+      <LastGenOutput>studentminiportal.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="studentMiniPortal.edmx.diagram">
-      <DependentUpon>studentMiniPortal.edmx</DependentUpon>
+    <Content Include="studentminiportal.edmx.diagram">
+      <DependentUpon>studentminiportal.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

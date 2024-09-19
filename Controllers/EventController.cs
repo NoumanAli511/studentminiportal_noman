@@ -13,7 +13,7 @@ namespace studentminiportal.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EventController : ApiController
     {
-        projectdatabaseEntities10 db = new projectdatabaseEntities10();
+        projectdatabaseEntities12 db = new projectdatabaseEntities12();
         [HttpPost]
         public HttpResponseMessage CreateEvent()
         {
@@ -182,7 +182,14 @@ namespace studentminiportal.Controllers
         {
             try
             {
-                var events = db.Events.ToList();
+                var events = db.Events.Select(s=>new { 
+                s.event_id,
+                s.description,
+                s.event_date,
+                s.image_path,
+                s.venue,
+                s.title,
+                }).ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, events);
             }
             catch (Exception e)
@@ -216,7 +223,47 @@ namespace studentminiportal.Controllers
                 return Request.CreateResponse(cp.Message + ":" + cp.InnerException);
             }
         }
-
+        // getting the names of students who responsded on the survey particular section
+        [HttpGet]
+        public HttpResponseMessage GetStudentResponseSections(int answer,int surveyId,int questionId)
+        {
+            try
+            {
+                if (answer == 3)
+                {
+                    answer = -1;
+                }
+                else if(answer==4)
+                {
+                    answer = 0;
+                }
+                else if(answer==2)
+                {
+                    answer = 3;
+                }else if (answer == 1)
+                {
+                    answer = 2;
+                }else if (answer == 0)
+                {
+                    answer = 1;
+                }
+                var completedSurveyFinding = db.CompletedSurveys.Where(s => s.answer == answer && s.createsurvey.SurveyID == surveyId && s.QuestionId == questionId).Select(s => new
+                {
+                    s.bothstudent.student_id,
+                    s.bothstudent.name,
+                    s.bothstudent.arid_number,
+                    s.bothstudent.address,
+                }).Distinct().ToList();
+                if (completedSurveyFinding == null)
+                {
+                    return Request.CreateResponse("No Response Founded");
+                }
+                return Request.CreateResponse(completedSurveyFinding);
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
         
 
 

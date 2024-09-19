@@ -11,7 +11,7 @@ namespace studentminiportal.Controllers
     public class SurveyController : ApiController
     {
 
-        projectdatabaseEntities10 db = new projectdatabaseEntities10();
+        projectdatabaseEntities12 db = new projectdatabaseEntities12();
         [HttpPost]
         public HttpResponseMessage Addsurvey(createsurvey createsurvey)
         {

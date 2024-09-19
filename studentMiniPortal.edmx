@@ -78,6 +78,16 @@
           <Property Name="gender" Type="char" MaxLength="1" />
           <Property Name="Technology" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="commentedOnEvent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentId" Type="int" />
+          <Property Name="event_id" Type="int" />
+          <Property Name="commentText" Type="varchar" MaxLength="255" />
+          <Property Name="date" Type="datetime" />
+        </EntityType>
         <EntityType Name="CompletedSurveys">
           <Key>
             <PropertyRef Name="id" />
@@ -251,6 +261,14 @@
           <Property Name="email" Type="varchar" MaxLength="70" />
           <Property Name="contact" Type="varchar" MaxLength="70" />
         </EntityType>
+        <EntityType Name="ViewedEvents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="studentId" Type="int" />
+          <Property Name="event_id" Type="int" />
+        </EntityType>
         <Association Name="FK__Alumni__users_id__693CA210">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Alumni" Type="Self.Alumni" Multiplicity="*" />
@@ -272,6 +290,30 @@
             </Principal>
             <Dependent Role="AssignedSurvey">
               <PropertyRef Name="SurveyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__commented__event__503BEA1C">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="commentedOnEvent" Type="Self.commentedOnEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="event_id" />
+            </Principal>
+            <Dependent Role="commentedOnEvent">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__commented__stude__4F47C5E3">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="commentedOnEvent" Type="Self.commentedOnEvent" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bothstudent">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="commentedOnEvent">
+              <PropertyRef Name="studentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -409,12 +451,37 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__ViewedEve__event__540C7B00">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="ViewedEvents" Type="Self.ViewedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Events">
+              <PropertyRef Name="event_id" />
+            </Principal>
+            <Dependent Role="ViewedEvents">
+              <PropertyRef Name="event_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ViewedEve__stude__531856C7">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="ViewedEvents" Type="Self.ViewedEvents" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="bothstudent">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="ViewedEvents">
+              <PropertyRef Name="studentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="projectdatabaseModelStoreContainer">
           <EntitySet Name="admin" EntityType="Self.admin" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Alumni" EntityType="Self.Alumni" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Alumni_" EntityType="Self.Alumni_" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AssignedSurvey" EntityType="Self.AssignedSurvey" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="bothstudent" EntityType="Self.bothstudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="commentedOnEvent" EntityType="Self.commentedOnEvent" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CompletedSurveys" EntityType="Self.CompletedSurveys" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="courses" EntityType="Self.courses" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="createsurvey" EntityType="Self.createsurvey" Schema="dbo" store:Type="Tables" />
@@ -431,6 +498,7 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <EntitySet Name="SurveyQuestionOptions" EntityType="Self.SurveyQuestionOptions" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ViewedEvents" EntityType="Self.ViewedEvents" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Alumni__users_id__693CA210" Association="Self.FK__Alumni__users_id__693CA210">
             <End Role="Users" EntitySet="Users" />
             <End Role="Alumni" EntitySet="Alumni" />
@@ -438,6 +506,14 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <AssociationSet Name="FK__AssignedS__Surve__160F4887" Association="Self.FK__AssignedS__Surve__160F4887">
             <End Role="createsurvey" EntitySet="createsurvey" />
             <End Role="AssignedSurvey" EntitySet="AssignedSurvey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__commented__event__503BEA1C" Association="Self.FK__commented__event__503BEA1C">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="commentedOnEvent" EntitySet="commentedOnEvent" />
+          </AssociationSet>
+          <AssociationSet Name="FK__commented__stude__4F47C5E3" Association="Self.FK__commented__stude__4F47C5E3">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="commentedOnEvent" EntitySet="commentedOnEvent" />
           </AssociationSet>
           <AssociationSet Name="FK__Completed__stude__3E1D39E1" Association="Self.FK__Completed__stude__3E1D39E1">
             <End Role="bothstudent" EntitySet="bothstudent" />
@@ -478,6 +554,14 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <AssociationSet Name="FK__SurveyRes__Stude__25518C17" Association="Self.FK__SurveyRes__Stude__25518C17">
             <End Role="bothstudent" EntitySet="bothstudent" />
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ViewedEve__event__540C7B00" Association="Self.FK__ViewedEve__event__540C7B00">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="ViewedEvents" EntitySet="ViewedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ViewedEve__stude__531856C7" Association="Self.FK__ViewedEve__stude__531856C7">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="ViewedEvents" EntitySet="ViewedEvents" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -557,10 +641,22 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <Property Name="status" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
           <Property Name="Technology" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="commentedOnEvent" Relationship="Self.FK__commented__stude__4F47C5E3" FromRole="bothstudent" ToRole="commentedOnEvent" />
           <NavigationProperty Name="CompletedSurveys" Relationship="Self.FK__Completed__stude__3E1D39E1" FromRole="bothstudent" ToRole="CompletedSurveys" />
           <NavigationProperty Name="EventComments" Relationship="Self.FK__EventComm__stude__245D67DE" FromRole="bothstudent" ToRole="EventComments" />
           <NavigationProperty Name="JobApplications" Relationship="Self.FK__JobApplic__stude__17036CC0" FromRole="bothstudent" ToRole="JobApplications" />
           <NavigationProperty Name="SurveyResponse" Relationship="Self.FK__SurveyRes__Stude__25518C17" FromRole="bothstudent" ToRole="SurveyResponse" />
+          <NavigationProperty Name="ViewedEvents" Relationship="Self.FK__ViewedEve__stude__531856C7" FromRole="bothstudent" ToRole="ViewedEvents" />
+        </EntityType>
+        <EntityType Name="commentedOnEvent">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="commentText" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="bothstudent" Relationship="Self.FK__commented__stude__4F47C5E3" FromRole="commentedOnEvent" ToRole="bothstudent" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__commented__event__503BEA1C" FromRole="commentedOnEvent" ToRole="Events" />
         </EntityType>
         <EntityType Name="CompletedSurveys">
           <Key>
@@ -613,7 +709,9 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <Property Name="venue" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="image_path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="commentedOnEvent" Relationship="Self.FK__commented__event__503BEA1C" FromRole="Events" ToRole="commentedOnEvent" />
           <NavigationProperty Name="EventComments" Relationship="Self.FK__EventComm__event__236943A5" FromRole="Events" ToRole="EventComments" />
+          <NavigationProperty Name="ViewedEvents" Relationship="Self.FK__ViewedEve__event__540C7B00" FromRole="Events" ToRole="ViewedEvents" />
         </EntityType>
         <EntityType Name="JobApplications">
           <Key>
@@ -743,6 +841,14 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <NavigationProperty Name="Alumni" Relationship="Self.FK__Alumni__users_id__693CA210" FromRole="Users" ToRole="Alumni" />
           <NavigationProperty Name="Student" Relationship="Self.FK__Student__users_i__6D0D32F4" FromRole="Users" ToRole="Student" />
         </EntityType>
+        <EntityType Name="ViewedEvents">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="bothstudent" Relationship="Self.FK__ViewedEve__stude__531856C7" FromRole="ViewedEvents" ToRole="bothstudent" />
+          <NavigationProperty Name="Events" Relationship="Self.FK__ViewedEve__event__540C7B00" FromRole="ViewedEvents" ToRole="Events" />
+        </EntityType>
         <Association Name="FK__Alumni__users_id__693CA210">
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Alumni" Type="Self.Alumni" Multiplicity="*" />
@@ -750,6 +856,10 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
         <Association Name="FK__AssignedS__Surve__160F4887">
           <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
           <End Role="AssignedSurvey" Type="Self.AssignedSurvey" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__commented__stude__4F47C5E3">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="commentedOnEvent" Type="Self.commentedOnEvent" Multiplicity="*" />
         </Association>
         <Association Name="FK__Completed__stude__3E1D39E1">
           <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
@@ -767,6 +877,14 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
           <End Role="SurveyResponse" Type="Self.SurveyResponse" Multiplicity="*" />
         </Association>
+        <Association Name="FK__ViewedEve__stude__531856C7">
+          <End Role="bothstudent" Type="Self.bothstudent" Multiplicity="0..1" />
+          <End Role="ViewedEvents" Type="Self.ViewedEvents" Multiplicity="*" />
+        </Association>
+        <Association Name="FK__commented__event__503BEA1C">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="commentedOnEvent" Type="Self.commentedOnEvent" Multiplicity="*" />
+        </Association>
         <Association Name="FK__Completed__surve__3D2915A8">
           <End Role="createsurvey" Type="Self.createsurvey" Multiplicity="0..1" />
           <End Role="CompletedSurveys" Type="Self.CompletedSurveys" Multiplicity="*" />
@@ -783,6 +901,10 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
           <End Role="EventComments" Type="Self.EventComments" Multiplicity="*" />
         </Association>
+        <Association Name="FK__ViewedEve__event__540C7B00">
+          <End Role="Events" Type="Self.Events" Multiplicity="0..1" />
+          <End Role="ViewedEvents" Type="Self.ViewedEvents" Multiplicity="*" />
+        </Association>
         <Association Name="FK__JobDetail__Stude__6C190EBB">
           <End Role="Students" Type="Self.Students" Multiplicity="0..1" />
           <End Role="JobDetails" Type="Self.JobDetails" Multiplicity="*" />
@@ -791,12 +913,13 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
           <End Role="Student" Type="Self.Student" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="projectdatabaseEntities10" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="projectdatabaseEntities12" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="admin" EntityType="Self.admin" />
           <EntitySet Name="Alumni" EntityType="Self.Alumni" />
           <EntitySet Name="Alumni_" EntityType="Self.Alumni_" />
           <EntitySet Name="AssignedSurvey" EntityType="Self.AssignedSurvey" />
           <EntitySet Name="bothstudent" EntityType="Self.bothstudent" />
+          <EntitySet Name="commentedOnEvent" EntityType="Self.commentedOnEvent" />
           <EntitySet Name="CompletedSurveys" EntityType="Self.CompletedSurveys" />
           <EntitySet Name="courses" EntityType="Self.courses" />
           <EntitySet Name="createsurvey" EntityType="Self.createsurvey" />
@@ -813,6 +936,7 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <EntitySet Name="SurveyQuestionOptions" EntityType="Self.SurveyQuestionOptions" />
           <EntitySet Name="SurveyResponse" EntityType="Self.SurveyResponse" />
           <EntitySet Name="Users" EntityType="Self.Users" />
+          <EntitySet Name="ViewedEvents" EntityType="Self.ViewedEvents" />
           <AssociationSet Name="FK__Alumni__users_id__693CA210" Association="Self.FK__Alumni__users_id__693CA210">
             <End Role="Users" EntitySet="Users" />
             <End Role="Alumni" EntitySet="Alumni" />
@@ -820,6 +944,10 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
           <AssociationSet Name="FK__AssignedS__Surve__160F4887" Association="Self.FK__AssignedS__Surve__160F4887">
             <End Role="createsurvey" EntitySet="createsurvey" />
             <End Role="AssignedSurvey" EntitySet="AssignedSurvey" />
+          </AssociationSet>
+          <AssociationSet Name="FK__commented__stude__4F47C5E3" Association="Self.FK__commented__stude__4F47C5E3">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="commentedOnEvent" EntitySet="commentedOnEvent" />
           </AssociationSet>
           <AssociationSet Name="FK__Completed__stude__3E1D39E1" Association="Self.FK__Completed__stude__3E1D39E1">
             <End Role="bothstudent" EntitySet="bothstudent" />
@@ -837,6 +965,14 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
             <End Role="bothstudent" EntitySet="bothstudent" />
             <End Role="SurveyResponse" EntitySet="SurveyResponse" />
           </AssociationSet>
+          <AssociationSet Name="FK__ViewedEve__stude__531856C7" Association="Self.FK__ViewedEve__stude__531856C7">
+            <End Role="bothstudent" EntitySet="bothstudent" />
+            <End Role="ViewedEvents" EntitySet="ViewedEvents" />
+          </AssociationSet>
+          <AssociationSet Name="FK__commented__event__503BEA1C" Association="Self.FK__commented__event__503BEA1C">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="commentedOnEvent" EntitySet="commentedOnEvent" />
+          </AssociationSet>
           <AssociationSet Name="FK__Completed__surve__3D2915A8" Association="Self.FK__Completed__surve__3D2915A8">
             <End Role="createsurvey" EntitySet="createsurvey" />
             <End Role="CompletedSurveys" EntitySet="CompletedSurveys" />
@@ -853,6 +989,10 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
             <End Role="Events" EntitySet="Events" />
             <End Role="EventComments" EntitySet="EventComments" />
           </AssociationSet>
+          <AssociationSet Name="FK__ViewedEve__event__540C7B00" Association="Self.FK__ViewedEve__event__540C7B00">
+            <End Role="Events" EntitySet="Events" />
+            <End Role="ViewedEvents" EntitySet="ViewedEvents" />
+          </AssociationSet>
           <AssociationSet Name="FK__JobDetail__Stude__6C190EBB" Association="Self.FK__JobDetail__Stude__6C190EBB">
             <End Role="Students" EntitySet="Students" />
             <End Role="JobDetails" EntitySet="JobDetails" />
@@ -867,7 +1007,7 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="projectdatabaseModelStoreContainer" CdmEntityContainer="projectdatabaseEntities10">
+        <EntityContainerMapping StorageEntityContainer="projectdatabaseModelStoreContainer" CdmEntityContainer="projectdatabaseEntities12">
           <EntitySetMapping Name="admin">
             <EntityTypeMapping TypeName="projectdatabaseModel.admin">
               <MappingFragment StoreEntitySet="admin">
@@ -941,6 +1081,15 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
                 <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="Technology" ColumnName="Technology" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="commentedOnEvent">
+            <EntityTypeMapping TypeName="projectdatabaseModel.commentedOnEvent">
+              <MappingFragment StoreEntitySet="commentedOnEvent">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="commentText" ColumnName="commentText" />
+                <ScalarProperty Name="date" ColumnName="date" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1123,6 +1272,13 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ViewedEvents">
+            <EntityTypeMapping TypeName="projectdatabaseModel.ViewedEvents">
+              <MappingFragment StoreEntitySet="ViewedEvents">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <AssociationSetMapping Name="FK__Alumni__users_id__693CA210" TypeName="projectdatabaseModel.FK__Alumni__users_id__693CA210" StoreEntitySet="Alumni">
             <EndProperty Name="Users">
               <ScalarProperty Name="users_id" ColumnName="users_id" />
@@ -1140,6 +1296,15 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
               <ScalarProperty Name="AssignmentID" ColumnName="AssignmentID" />
             </EndProperty>
             <Condition IsNull="false" ColumnName="SurveyID" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__commented__stude__4F47C5E3" TypeName="projectdatabaseModel.FK__commented__stude__4F47C5E3" StoreEntitySet="commentedOnEvent">
+            <EndProperty Name="bothstudent">
+              <ScalarProperty Name="student_id" ColumnName="studentId" />
+            </EndProperty>
+            <EndProperty Name="commentedOnEvent">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="studentId" />
           </AssociationSetMapping>
           <AssociationSetMapping Name="FK__Completed__stude__3E1D39E1" TypeName="projectdatabaseModel.FK__Completed__stude__3E1D39E1" StoreEntitySet="CompletedSurveys">
             <EndProperty Name="bothstudent">
@@ -1177,6 +1342,24 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
             </EndProperty>
             <Condition IsNull="false" ColumnName="StudentID" />
           </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__ViewedEve__stude__531856C7" TypeName="projectdatabaseModel.FK__ViewedEve__stude__531856C7" StoreEntitySet="ViewedEvents">
+            <EndProperty Name="bothstudent">
+              <ScalarProperty Name="student_id" ColumnName="studentId" />
+            </EndProperty>
+            <EndProperty Name="ViewedEvents">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="studentId" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__commented__event__503BEA1C" TypeName="projectdatabaseModel.FK__commented__event__503BEA1C" StoreEntitySet="commentedOnEvent">
+            <EndProperty Name="Events">
+              <ScalarProperty Name="event_id" ColumnName="event_id" />
+            </EndProperty>
+            <EndProperty Name="commentedOnEvent">
+              <ScalarProperty Name="id" ColumnName="id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="event_id" />
+          </AssociationSetMapping>
           <AssociationSetMapping Name="FK__Completed__surve__3D2915A8" TypeName="projectdatabaseModel.FK__Completed__surve__3D2915A8" StoreEntitySet="CompletedSurveys">
             <EndProperty Name="createsurvey">
               <ScalarProperty Name="SurveyID" ColumnName="surveyId" />
@@ -1210,6 +1393,15 @@ warning 6037: Foreign key constraint 'FK__courses__regno__6B24EA82' has been omi
             </EndProperty>
             <EndProperty Name="EventComments">
               <ScalarProperty Name="comment_id" ColumnName="comment_id" />
+            </EndProperty>
+            <Condition IsNull="false" ColumnName="event_id" />
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="FK__ViewedEve__event__540C7B00" TypeName="projectdatabaseModel.FK__ViewedEve__event__540C7B00" StoreEntitySet="ViewedEvents">
+            <EndProperty Name="Events">
+              <ScalarProperty Name="event_id" ColumnName="event_id" />
+            </EndProperty>
+            <EndProperty Name="ViewedEvents">
+              <ScalarProperty Name="id" ColumnName="id" />
             </EndProperty>
             <Condition IsNull="false" ColumnName="event_id" />
           </AssociationSetMapping>

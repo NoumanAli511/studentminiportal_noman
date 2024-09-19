@@ -17,7 +17,9 @@ namespace studentminiportal
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Events()
         {
+            this.commentedOnEvent = new HashSet<commentedOnEvent>();
             this.EventComments = new HashSet<EventComments>();
+            this.ViewedEvents = new HashSet<ViewedEvents>();
         }
     
         public int event_id { get; set; }
@@ -28,6 +30,10 @@ namespace studentminiportal
         public string image_path { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<commentedOnEvent> commentedOnEvent { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EventComments> EventComments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ViewedEvents> ViewedEvents { get; set; }
     }
 }

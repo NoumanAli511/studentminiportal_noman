@@ -12,7 +12,7 @@ namespace studentminiportal.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class MiniPortalController : ApiController
     {
-        projectdatabaseEntities10 db = new projectdatabaseEntities10();
+        projectdatabaseEntities12 db = new projectdatabaseEntities12();
 
         [HttpGet]
         public HttpResponseMessage AdminLogin(string username, string password)
