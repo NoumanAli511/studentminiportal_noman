@@ -571,7 +571,7 @@ namespace studentminiportal.Controllers
                 return Request.CreateResponse(cp.Message);
             }
         }
-
+        //View Sections
         [HttpPost]
         public HttpResponseMessage MarkAsViewed(int eventId,int student_id)
         {
