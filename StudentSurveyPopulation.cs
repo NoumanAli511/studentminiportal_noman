@@ -13,7 +13,7 @@ namespace studentminiportal
         public List<string> section { get; set; } = new List<string>(); // Initialize here
         public List<int> semester { get; set; } = new List<int>(); // Initialize here
         public List<string> degree { get; set; } = new List<string>(); // Initialize here
-        public string gender { get; set; }
+        public List<string> gender { get; set; }
         // alumni student
         public List<string> address { get; set; } = new List<string>(); // Initialize here
         public List<string> Technology { get; set; } = new List<string>(); // Initialize here

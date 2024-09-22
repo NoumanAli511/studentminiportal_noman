@@ -25,7 +25,7 @@ namespace studentminiportal.Controllers
                 return Request.CreateResponse(cp.Message);
             }
         }
-        
+
         //Select Population
         [HttpPost]
         public HttpResponseMessage ManagePopulation(StudentSurveyPopulation surveyPopulation)
@@ -35,8 +35,10 @@ namespace studentminiportal.Controllers
                 if (surveyPopulation != null)
                 {
                     var survey = db.createsurvey.Where(s => s.SurveyID == surveyPopulation.surveyID).FirstOrDefault();
-                    if (survey == null) return Request.CreateResponse("Survey Not founded");
+                    if (survey == null) return Request.CreateResponse("Survey Not found");
+
                     var studentType = surveyPopulation.studentType;
+
                     if (studentType == "current")
                     {
                         foreach (var degree in surveyPopulation.degree)
@@ -45,55 +47,64 @@ namespace studentminiportal.Controllers
                             {
                                 foreach (var section in surveyPopulation.section)
                                 {
-                                    AssignedSurvey population = new AssignedSurvey
+                                    // Loop through genders array and insert for each selected gender
+                                    foreach (var gender in surveyPopulation.gender)
                                     {
-                                        Department = degree,
-                                        Semester = semester,
-                                        Section = section,
-                                        Gender = surveyPopulation.gender,
-                                        City = null, // Set as necessary surveyPopulation.City.First()
-                                        Technology = null, // Set as necessary
-                                        GraduationYear = 0, // Set as necessary
-                                        studentType = studentType,
-                                        createsurvey = survey,
-                                    };
-                                    db.AssignedSurvey.Add(population);
-                                    db.SaveChanges();
-                                    // Add the assigned survey to the database context and save changes
+                                        AssignedSurvey population = new AssignedSurvey
+                                        {
+                                            Department = degree,
+                                            Semester = semester,
+                                            Section = section,
+                                            Gender = gender.ToString(), // Set gender from the array
+                                            City = null, // Set as necessary (surveyPopulation.City.First() if required)
+                                            Technology = null, // Set as necessary
+                                            GraduationYear = 0, // Set as necessary
+                                            studentType = studentType,
+                                            createsurvey = survey,
+                                        };
+
+                                        // Add the assigned survey to the database context and save changes
+                                        db.AssignedSurvey.Add(population);
+                                        db.SaveChanges();
+                                    }
                                 }
                             }
                         }
                     }
                     else
                     {
-                        // insert for the alumni value
+                        // Insert for the alumni value
                         foreach (var city in surveyPopulation.address)
                         {
                             foreach (var technology in surveyPopulation.Technology)
                             {
                                 foreach (var graduationYear in surveyPopulation.graduation)
                                 {
-                                    AssignedSurvey assignedSurvey = new AssignedSurvey
+                                    // Loop through genders array and insert for each selected gender
+                                    foreach (var gender in surveyPopulation.gender)
                                     {
-                                        Department = surveyPopulation.degree.First(), // Set as necessary
-                                        Semester = null, // Set as necessary
-                                        Section = null, // Set as necessary
-                                        Gender = surveyPopulation.gender,
-                                        City = city,
-                                        Technology = technology,
-                                        GraduationYear = graduationYear,
-                                        createsurvey = survey,
-                                        studentType = studentType,
-                                    };
+                                        AssignedSurvey assignedSurvey = new AssignedSurvey
+                                        {
+                                            Department = surveyPopulation.degree.First(), // Set as necessary
+                                            Semester = null, // Set as necessary
+                                            Section = null, // Set as necessary
+                                            Gender = gender.ToString(), // Set gender from the array
+                                            City = city,
+                                            Technology = technology,
+                                            GraduationYear = graduationYear,
+                                            createsurvey = survey,
+                                            studentType = studentType,
+                                        };
 
-                                    // Add the assigned survey to the database context and save changes
-                                    db.AssignedSurvey.Add(assignedSurvey);
-                                    db.SaveChanges();
+                                        // Add the assigned survey to the database context and save changes
+                                        db.AssignedSurvey.Add(assignedSurvey);
+                                        db.SaveChanges();
+                                    }
                                 }
                             }
                         }
-
                     }
+
                     return Request.CreateResponse(HttpStatusCode.OK, "Data successfully inserted");
                 }
                 else
@@ -108,7 +119,7 @@ namespace studentminiportal.Controllers
         }
 
         // Fetching Id by name
-      [HttpGet]
+        [HttpGet]
         public HttpResponseMessage FetchingId(string title)
         {
             try
@@ -299,7 +310,7 @@ namespace studentminiportal.Controllers
                                     && s.City == studentfetching.address
                                     && s.Department == studentfetching.department
                                     && s.GraduationYear.ToString() == studentfetching.graduation_year
-                                  && s.Gender == gender
+                                     && s.Gender == gender
                                     && s.Technology == studentfetching.Technology
                                     && s.createsurvey.EndDate > currentDate
                                     && !db.CompletedSurveys.Any(cs => cs.createsurvey.SurveyID == s.createsurvey.SurveyID && cs.bothstudent.student_id == studentfetching.student_id))
@@ -737,36 +748,42 @@ public HttpResponseMessage ManagePopulationUpdating(StudentSurveyPopulation surv
                 {
                     foreach (var semester in surveyPopulation.semester)
                     {
-                        foreach (var section in surveyPopulation.section)
-                        {
-                            foreach (var assignmentId in surveyPopulation.AssignmentId)
-                            {
-                                var AssignmentFounding = db.AssignedSurvey.Where(s => s.AssignmentID == assignmentId).FirstOrDefault();
-                                if (AssignmentFounding != null)
+                                foreach (var section in surveyPopulation.section)
                                 {
-                                    AssignmentFounding.Department = degree;
-                                    AssignmentFounding.Semester = semester;
-                                    AssignmentFounding.Section = section;
-                                    AssignmentFounding.Gender = surveyPopulation.gender;
-                                    AssignmentFounding.studentType = studentType;
-                                    AssignmentFounding.createsurvey = survey;
+                                    foreach (var assignmentId in surveyPopulation.AssignmentId)
+                                    {
+                                        foreach (var gender in surveyPopulation.gender)
+                                        {
+
+
+                                            var AssignmentFounding = db.AssignedSurvey.Where(s => s.AssignmentID == assignmentId).FirstOrDefault();
+                                            if (AssignmentFounding != null)
+                                            {
+                                                AssignmentFounding.Department = degree;
+                                                AssignmentFounding.Semester = semester;
+                                                AssignmentFounding.Section = section;
+                                                AssignmentFounding.Gender = gender;
+                                                AssignmentFounding.studentType = studentType;
+                                                AssignmentFounding.createsurvey = survey;
+                                            }
+
+                                            AssignedSurvey population = new AssignedSurvey
+                                            {
+                                                Department = degree,
+                                                Semester = semester,
+                                                Section = section,
+                                                Gender = gender,
+                                                City = null, // Set as necessary
+                                                Technology = null, // Set as necessary
+                                                GraduationYear = 0, // Set as necessary
+                                                studentType = studentType,
+                                                createsurvey = survey,
+                                            };
+                                            db.AssignedSurvey.Add(population);
+                                        }
+                                        }
+                                    }
                                 }
-                            }
-                            AssignedSurvey population = new AssignedSurvey
-                            {
-                                Department = degree,
-                                Semester = semester,
-                                Section = section,
-                                Gender = surveyPopulation.gender,
-                                City = null, // Set as necessary
-                                Technology = null, // Set as necessary
-                                GraduationYear = 0, // Set as necessary
-                                studentType = studentType,
-                                createsurvey = survey,
-                            };
-                            db.AssignedSurvey.Add(population);
-                        }
-                    }
                 }
             }
             else
@@ -782,34 +799,39 @@ public HttpResponseMessage ManagePopulationUpdating(StudentSurveyPopulation surv
                     {
                         foreach (var graduationYear in surveyPopulation.graduation)
                         {
-                            foreach (var assignmentId in surveyPopulation.AssignmentId)
-                            {
-                                var AssignmentFounding = db.AssignedSurvey.Where(s => s.AssignmentID == assignmentId).FirstOrDefault();
-                                if (AssignmentFounding != null)
-                                {
-                                    AssignmentFounding.Department = surveyPopulation.degree.FirstOrDefault(); // Check if degree is empty
-                                    AssignmentFounding.Gender = surveyPopulation.gender;
-                                    AssignmentFounding.City = city;
-                                    AssignmentFounding.Technology = technology;
-                                    AssignmentFounding.GraduationYear = graduationYear;
-                                    AssignmentFounding.studentType = studentType;
-                                    AssignmentFounding.createsurvey = survey;
-                                }
-                            }
-                            AssignedSurvey assignedSurvey = new AssignedSurvey
-                            {
-                                Department = surveyPopulation.degree.FirstOrDefault(), // Check if degree is empty
-                                Semester = null,
-                                Section = null,
-                                Gender = surveyPopulation.gender,
-                                City = city,
-                                Technology = technology,
-                                GraduationYear = graduationYear,
-                                createsurvey = survey,
-                                studentType = studentType,
-                            };
+                                    foreach (var assignmentId in surveyPopulation.AssignmentId)
+                                    {
+                                        foreach (var gender in surveyPopulation.gender)
+                                        {
 
-                            db.AssignedSurvey.Add(assignedSurvey);
+
+                                            var AssignmentFounding = db.AssignedSurvey.Where(s => s.AssignmentID == assignmentId).FirstOrDefault();
+                                            if (AssignmentFounding != null)
+                                            {
+                                                AssignmentFounding.Department = surveyPopulation.degree.FirstOrDefault(); // Check if degree is empty
+                                                AssignmentFounding.Gender = gender;
+                                                AssignmentFounding.City = city;
+                                                AssignmentFounding.Technology = technology;
+                                                AssignmentFounding.GraduationYear = graduationYear;
+                                                AssignmentFounding.studentType = studentType;
+                                                AssignmentFounding.createsurvey = survey;
+                                            }
+
+                                            AssignedSurvey assignedSurvey = new AssignedSurvey
+                                            {
+                                                Department = surveyPopulation.degree.FirstOrDefault(), // Check if degree is empty
+                                                Semester = null,
+                                                Section = null,
+                                                Gender = gender,
+                                                City = city,
+                                                Technology = technology,
+                                                GraduationYear = graduationYear,
+                                                createsurvey = survey,
+                                                studentType = studentType,
+                                            };
+                                            db.AssignedSurvey.Add(assignedSurvey);
+                                        }
+                                    }
                         }
                     }
                 }

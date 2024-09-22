@@ -83,6 +83,18 @@ namespace studentminiportal.Controllers
                 var Event = db.Events.Where(s => s.event_id == event_id).FirstOrDefault();
                 if(Event != null)
                 {
+                    var findingCommentsOnSameEvent = db.commentedOnEvent.Where(s => s.Events.event_id == Event.event_id).ToList();
+                    foreach(var comment in findingCommentsOnSameEvent)
+                    {
+                        db.commentedOnEvent.Remove(comment);
+                        db.SaveChanges();
+                    }
+                    var findingViewedEvents = db.ViewedEvents.Where(s => s.Events.event_id == Event.event_id).ToList();
+                    foreach(var view in findingViewedEvents)
+                    {
+                        db.ViewedEvents.Remove(view);
+                        db.SaveChanges();
+                    }
                     db.Events.Remove(Event);                 
                 }
                 else

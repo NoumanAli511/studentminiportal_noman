@@ -24,14 +24,15 @@ namespace studentminiportal.Controllers
                     s.student_id,
                     s.name,
                     s.address,
-                    s.graduation_year,
+                    s.graduation_year,  
                     s.status,
                     s.email,
                     s.section,
                     s.gender,
                     s.arid_number,
                     s.phone_number,
-                    s.department
+                    s.department,
+                    s.password
 
                 }).FirstOrDefault();
                 if (std!=null)
@@ -227,7 +228,7 @@ namespace studentminiportal.Controllers
             }
         }
 
-        /*Get All Jobs Posted*/
+        /*Get All Jobs Posted for student viewing*/
         [HttpGet]
         public HttpResponseMessage FetchAllJobsApproved()
         {
@@ -235,22 +236,19 @@ namespace studentminiportal.Controllers
             {   
                     var Alljobs = db.JobApplications.Where(s=>s.IsApproved==true).Select(s => new
                     {
-                        student = new
+                        s.JobTitle,
+                        s.ApplicationID,
+                        s.IsApproved,
+                        s.JobDescription,
+                        s.CompanyName,
+                        studentInfo = new
                         {
+                            s.bothstudent.email,
                             s.bothstudent.student_id,
+                            s.bothstudent.phone_number,
                             s.bothstudent.name,
                             s.bothstudent.arid_number,
-                            s.bothstudent.email,
-                            s.bothstudent.phone_number,
-                            s.bothstudent.graduation_year,
-                        },
-                        jobDetails = new
-                        {
-                            s.ApplicationID,
-                            s.JobTitle,
-                            s.CompanyName,
-                            s.JobDescription,
-                            s.IsApproved,
+                            s.bothstudent.department
                         }
                     }).Distinct().ToList();
                     if (Alljobs != null)
@@ -626,6 +624,30 @@ namespace studentminiportal.Controllers
                     return Request.CreateResponse("No Views");
                 }
                 return Request.CreateResponse(ViewedPeople);
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message);
+            }
+        }
+        //Change Password
+        [HttpPost]
+        public HttpResponseMessage PasswordChanging(int studentId,string newpassword)
+        {
+            try
+            {
+                var studentFinding = db.bothstudent.Where(s => s.student_id == studentId).FirstOrDefault();
+                if (studentFinding == null)
+                {
+                    return Request.CreateResponse("Student not founded");
+                }
+                string oldPassword = studentFinding.password;
+                studentFinding.password = newpassword;
+                int RowsEffected = db.SaveChanges();
+                if (RowsEffected == 0)
+                {
+                    return Request.CreateResponse(HttpStatusCode.BadRequest,"Password Not updated");
+                }
+                return Request.CreateResponse(HttpStatusCode.OK,$"Password Updated From {oldPassword} to {newpassword}");
             }catch(Exception cp)
             {
                 return Request.CreateResponse(cp.Message);

@@ -86,6 +86,30 @@ namespace studentminiportal.Controllers
                 return Request.CreateResponse(cp.Message + ":" + cp.InnerException);
             }
         }
+        [HttpPost]
+        public HttpResponseMessage updateEmailAndPhoneNumberOfStudent(string email,string phone_no,int studentId)
+        {
+            try
+            {
+                var student = db.bothstudent.Where(s=>s.student_id==studentId).Select(s => s).FirstOrDefault();
+                if (student != null)
+                {
+                    student.email = email;
+                    student.phone_number= phone_no;
+                    db.SaveChanges();
+                    return Request.CreateResponse("Email and Password Updated");
+                }
+                else
+                {
+                    return Request.CreateResponse("Admin not Founded");
+                }
+
+            }catch(Exception cp)
+            {
+                return Request.CreateResponse(cp.Message + ":" + cp.InnerException);
+            }
+        }
+
         // Getting details of admin
         /*  [HttpGet]
           public HttpResponseMessage adminDetails()
